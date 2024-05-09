@@ -10,9 +10,5 @@ trait NodeAsyncOperations {
     def upsertRootNode(graphId: String, node: Node, request: String): Future[Node]
     def deleteNode(graphId: String, nodeId: String, request: String): Future[Boolean]
 
-    def setPrimitiveData(node: Node): Node
-    def setPrimitiveData(metadata : Map[String, AnyRef]): Map[String, AnyRef]
-    def setRequestContextToNode(nodeId: String, request: String): Unit
-    def validateAuthorization(graphId: String, node: Node, request: String): Unit
 
 }
