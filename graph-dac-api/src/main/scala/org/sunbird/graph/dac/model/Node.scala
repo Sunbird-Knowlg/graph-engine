@@ -51,13 +51,26 @@ class Node extends Serializable {
     }
 
     def getId: Long = id
+
+    def setIt(id: Long): Unit = {
+        this.id = id
+    }
+
     @JsonIgnore
     def getGraphId: String = graphId
+
+    def setGraphId(graphId: String): Unit = {
+        this.graphId = graphId
+    }
 
     def getIdentifier: String = {
         if (StringUtils.isBlank(identifier) && metadata != null)
             this.identifier = metadata.get("IL_UNIQUE_ID").toString
         identifier
+    }
+
+    def setIdentifier(identifier: String): Unit = {
+        this.identifier = identifier
     }
 
     def getNodeType: String = {
@@ -66,10 +79,18 @@ class Node extends Serializable {
         nodeType
     }
 
-    def getAnyRefType: String = {
+    def setNodeType(nodeType: String): Unit = {
+        this.nodeType = nodeType
+    }
+
+    def getObjectType: String = {
         if (StringUtils.isBlank(objectType) && metadata != null)
             this.objectType = metadata.get("IL_FUNC_OBJECT_TYPE").toString
         objectType
+    }
+
+    def setObjectType(objectType: String): Unit = {
+        this.objectType = objectType
     }
 
     def getOutRelations: util.List[Relation] = {
@@ -78,19 +99,52 @@ class Node extends Serializable {
         else new util.ArrayList[Relation]()
     }
 
+    def setOutRelations(outRelations: util.List[Relation]): Unit = {
+        this.outRelations = outRelations
+    }
+
     def getInRelations: util.List[Relation] = {
         if (!CollectionUtils.isEmpty(inRelations))
             inRelations
         else new util.ArrayList[Relation]()
     }
 
+    def setInRelations(inRelations: util.List[Relation]): Unit = {
+        this.inRelations = inRelations
+    }
+
     def getAddedRelations: util.List[Relation] = addedRelations
+
+    def setAddedRelations(addedRelations: util.List[Relation]): Unit = {
+        if (CollectionUtils.isEmpty(this.addedRelations))
+            this.addedRelations = new util.ArrayList[Relation]()
+        this.addedRelations.addAll(addedRelations)
+    }
 
     def getDeletedRelations: util.List[Relation] = deletedRelations
 
+    def setDeletedRelations(deletedRelations: util.List[Relation]): Unit = {
+        this.deletedRelations = deletedRelations
+    }
+
     def getNode: Node = this
 
-    def getRelationNode(identifier: String): Node = relationNodes.get(identifier)
+    def getRelationNodes: util.Map[String, Node] = relationNodes
+
+    def setRelationNodes(relationNodes: util.Map[String, Node]): Unit = {
+        this.relationNodes = relationNodes
+    }
 
     def getArtifactUrl: String = metadata.getOrDefault("artifactUrl", "").toString
+
+    def getExternalData : util.Map[String, AnyRef] = externalData
+
+    def setExternalData(externalData: util.Map[String, AnyRef]): Unit = {
+        this.externalData = externalData
+    }
+
+    def getRelationNode(identifier: String): Unit = {
+        relationNodes.get(identifier)
+    }
+
 }
