@@ -1,0 +1,5 @@
+# Default ignored files
+/shelf/
+/.idea
+/graph-dac-api/target
+*.iml
